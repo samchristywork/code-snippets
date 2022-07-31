@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class S(BaseHTTPRequestHandler):
