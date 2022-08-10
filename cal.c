@@ -12,7 +12,7 @@ int main() {
   int duration = 100;
 
   time_t current_time = time(0);
-  struct tm *curr = gmtime(&current_time);
+  struct tm *curr = localtime(&current_time);
   int current_mday = curr->tm_mday;
   int current_mon = curr->tm_mon;
 
@@ -21,7 +21,10 @@ int main() {
   printf("Su Mo Tu We Th Fr Sa\n");
   printf("--------------------\n");
 
-  for (int i = 0; i < gmtime(&initial_time)->tm_wday; i++) {
+  /*
+   * Add padding to the start of the readout.
+   */
+  for (int i = 0; i < localtime(&initial_time)->tm_wday; i++) {
     printf("   ");
   }
 
@@ -29,7 +32,7 @@ int main() {
   for (int i = 0; i < duration; i++) {
 
     time_t t = initial_time + i * ONEDAY;
-    struct tm *tm = gmtime(&t);
+    struct tm *tm = localtime(&t);
 
     if (tm->tm_mday < 10) {
       printf(" ");
