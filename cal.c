@@ -36,9 +36,9 @@ int main() {
     }
 
     if (tm->tm_mday == current_mday && tm->tm_mon == current_mon) {
-      printf("[1;32m");
+      printf("\033[1;33m");
       printf("%d ", tm->tm_mday);
-      printf("[0m");
+      printf("\033[0m");
     } else {
       printf("%d ", tm->tm_mday);
     }
