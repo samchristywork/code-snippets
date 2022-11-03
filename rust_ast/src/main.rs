@@ -24,6 +24,7 @@ fn main() {
 
     let items = syntax.items;
     println!("{:#?}", items.len());
-    println!("{:#?}", items[0]);
-    println!("{:#?}", items);
+    for item in items {
+        println!("{:?}\n\n", item);
+    }
 }
