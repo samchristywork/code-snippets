@@ -49,6 +49,28 @@ int main(int argc, char *argv[]) {
 
     string line;
     while (getline(file, line)) {
+      if (line.length() == 0) {
+        continue;
+      }
+
+      int depth = countSpaces(line) / 2 + 2;
+      string label = strip(line);
+
+      if (depth == stack.size() + 1) {
+        stack.push_back(label);
+      } else if (depth == stack.size()) {
+        stack.pop_back();
+        stack.push_back(label);
+      } else if (depth < stack.size() + 1) {
+        while (depth < stack.size()) {
+          stack.pop_back();
+        }
+        stack.pop_back();
+        stack.push_back(label);
+      }
+
+      string parent = stack[stack.size() - 2];
+      cout << "  \"" << parent << "\"->\"" << label << "\"" << endl;
     }
     cout << "}" << endl;
     file.close();
