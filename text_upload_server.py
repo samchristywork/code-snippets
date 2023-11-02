@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import time
 
 app = Flask(__name__)
 
@@ -17,6 +18,8 @@ form = '''
 def index():
     if request.method == 'POST':
         text = request.form.get('text_area')
+        date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        appendToFile("Submitted at " + date, "text_upload.txt")
         appendToFile(text, "text_upload.txt")
         return 'Text received.<br><br>' + form
     return form
