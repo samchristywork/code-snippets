@@ -2,10 +2,15 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+def appendToFile(text, file):
+    with open(file, 'a') as f:
+        f.write(text + '\n')
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         text = request.form.get('text_area')
+        appendToFile(text, "text_upload.txt")
         return 'Text received.'
     return '''
     <form method="post">
