@@ -8,4 +8,32 @@
 </head>
 
 <body>
+  <form id="textForm" onsubmit="handleSubmit(event)">
+    <textarea name="text" rows="10" cols="60" required></textarea>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <pre id="response"></pre>
+</body>
+
+<script>
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const text = formData.get('text');
+
+    const response = await fetch('/data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({text}),
+    });
+
+    const responseData = await response.json();
+    document.getElementById('response').innerText = responseData.text;
+  }
+</script>
+
 </html>
