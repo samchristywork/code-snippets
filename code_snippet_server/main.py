@@ -8,12 +8,15 @@ submitted_data = "Initial data"
 def index():
     return render_template('index.html')
 
-@app.route('/data', methods=['POST'])
+@app.route('/data', methods=['GET', 'POST'])
 def data():
     global submitted_data
-    json_data = request.json
-    submitted_data = json_data.get('text', submitted_data)
-    return jsonify({"text": submitted_data})
+    if request.method == 'POST':
+        json_data = request.json
+        submitted_data = json_data.get('text', submitted_data)
+        return jsonify({"text": submitted_data})
+    else:
+        return jsonify({"text": submitted_data})
 
 if __name__ == '__main__':
     app.run(debug=True)
